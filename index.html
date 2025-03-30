@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RCN 30-Day OT Reading Plan</title>
+    <title>RCN 30-Day OT Reading Plan with Psalms</title>
     <style>
         :root {
             --rcn-blue: #003366;
@@ -11,6 +11,7 @@
             --rcn-red: #AA0000;
             --rcn-horseblood: #7D0A0A;
             --rcn-light: #F5F5F5;
+            --psalms-color: #4a6baf;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -97,6 +98,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 15px;
         }
         .chapter-btn {
             background-color: var(--rcn-blue);
@@ -110,11 +112,21 @@
             min-width: 80px;
             text-align: center;
         }
+        .psalms-btn {
+            background-color: var(--psalms-color);
+        }
         .chapter-btn.completed {
             background-color: var(--rcn-horseblood);
         }
+        .psalms-btn.completed {
+            background-color: #3a5285;
+        }
         .chapter-btn:hover {
             background-color: var(--rcn-horseblood);
+            transform: translateY(-2px);
+        }
+        .psalms-btn:hover {
+            background-color: #3a5285;
             transform: translateY(-2px);
         }
         .book-title {
@@ -124,6 +136,9 @@
             font-size: 16px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
+        }
+        .psalms-title {
+            color: var(--psalms-color);
         }
         .progress-container {
             width: 100%;
@@ -173,6 +188,9 @@
             position: relative;
             top: -0.4em;
         }
+        .psalms-verse-number {
+            color: var(--psalms-color);
+        }
         .back-btn {
             display: block;
             margin: 0;
@@ -214,6 +232,9 @@
             background-color: var(--rcn-horseblood);
             border-bottom: 1px solid var(--rcn-blue);
         }
+        .psalms-chapter-title {
+            background-color: var(--psalms-color);
+        }
         .loading {
             display: inline-block;
             width: 20px;
@@ -226,6 +247,11 @@
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        .optional-label {
+            font-style: italic;
+            color: #666;
+            margin: 10px 0 5px;
         }
     </style>
 </head>
@@ -248,7 +274,7 @@
         <div id="reading-plan">
             <!-- Day 1 -->
             <div class="day-card">
-                <div class="day-header" id="day-1-header" onclick="toggleDay(this)">Day 1 - Genesis 1-15</div>
+                <div class="day-header" id="day-1-header" onclick="toggleDay(this)">Day 1 - Genesis 1-14</div>
                 <div class="day-content">
                     <div class="book-title">Genesis (Creation & Patriarchs)</div>
                     <div class="reading-buttons">
@@ -266,18 +292,28 @@
                         <button class="chapter-btn" onclick="loadChapter('Genesis+12', 'KJV', this)">Genesis 12</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+13', 'KJV', this)">Genesis 13</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+14', 'KJV', this)">Genesis 14</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+15', 'KJV', this)">Genesis 15</button>
                     </div>
-                    <button class="reset-btn" onclick="resetDay('day-1', Array.from({length: 15}, (_, i) => 'Genesis+' + (i+1)))">Reset Day 1</button>
+                    
+                    <div class="optional-label">Optional Psalms (5 daily):</div>
+                    <div class="reading-buttons">
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+1', 'KJV', this)">Psalm 1</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+2', 'KJV', this)">Psalm 2</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+3', 'KJV', this)">Psalm 3</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+4', 'KJV', this)">Psalm 4</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+5', 'KJV', this)">Psalm 5</button>
+                    </div>
+                    
+                    <button class="reset-btn" onclick="resetDay('day-1', [...Array.from({length: 14}, (_, i) => 'Genesis+' + (i+1)), ...Array.from({length: 5}, (_, i) => 'Psalms+' + (i+1))])">Reset Day 1</button>
                 </div>
             </div>
 
             <!-- Day 2 -->
             <div class="day-card">
-                <div class="day-header" id="day-2-header" onclick="toggleDay(this)">Day 2 - Genesis 16-30</div>
+                <div class="day-header" id="day-2-header" onclick="toggleDay(this)">Day 2 - Genesis 15-28</div>
                 <div class="day-content">
                     <div class="book-title">Genesis (Abraham to Jacob)</div>
                     <div class="reading-buttons">
+                        <button class="chapter-btn" onclick="loadChapter('Genesis+15', 'KJV', this)">Genesis 15</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+16', 'KJV', this)">Genesis 16</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+17', 'KJV', this)">Genesis 17</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+18', 'KJV', this)">Genesis 18</button>
@@ -291,738 +327,24 @@
                         <button class="chapter-btn" onclick="loadChapter('Genesis+26', 'KJV', this)">Genesis 26</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+27', 'KJV', this)">Genesis 27</button>
                         <button class="chapter-btn" onclick="loadChapter('Genesis+28', 'KJV', this)">Genesis 28</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+29', 'KJV', this)">Genesis 29</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+30', 'KJV', this)">Genesis 30</button>
                     </div>
-                    <button class="reset-btn" onclick="resetDay('day-2', Array.from({length: 15}, (_, i) => 'Genesis+' + (i+16)))">Reset Day 2</button>
-                </div>
-            </div>
-
-            <!-- Day 3 -->
-            <div class="day-card">
-                <div class="day-header" id="day-3-header" onclick="toggleDay(this)">Day 3 - Genesis 31-50</div>
-                <div class="day-content">
-                    <div class="book-title">Genesis (Jacob to Joseph)</div>
+                    
+                    <div class="optional-label">Optional Psalms (5 daily):</div>
                     <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+31', 'KJV', this)">Genesis 31</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+32', 'KJV', this)">Genesis 32</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+33', 'KJV', this)">Genesis 33</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+34', 'KJV', this)">Genesis 34</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+35', 'KJV', this)">Genesis 35</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+36', 'KJV', this)">Genesis 36</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+37', 'KJV', this)">Genesis 37</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+38', 'KJV', this)">Genesis 38</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+39', 'KJV', this)">Genesis 39</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+40', 'KJV', this)">Genesis 40</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+41', 'KJV', this)">Genesis 41</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+42', 'KJV', this)">Genesis 42</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+43', 'KJV', this)">Genesis 43</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+44', 'KJV', this)">Genesis 44</button>
-                        <button class="chapter-btn" onclick="loadChapter('Genesis+45', 'KJV', this)">Genesis 45</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+6', 'KJV', this)">Psalm 6</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+7', 'KJV', this)">Psalm 7</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+8', 'KJV', this)">Psalm 8</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+9', 'KJV', this)">Psalm 9</button>
+                        <button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+10', 'KJV', this)">Psalm 10</button>
                     </div>
-                    <button class="reset-btn" onclick="resetDay('day-3', Array.from({length: 15}, (_, i) => 'Genesis+' + (i+31)))">Reset Day 3</button>
+                    
+                    <button class="reset-btn" onclick="resetDay('day-2', [...Array.from({length: 14}, (_, i) => 'Genesis+' + (i+15)), ...Array.from({length: 5}, (_, i) => 'Psalms+' + (i+6))])">Reset Day 2</button>
                 </div>
             </div>
 
-            <!-- Day 4 -->
-            <div class="day-card">
-                <div class="day-header" id="day-4-header" onclick="toggleDay(this)">Day 4 - Exodus 1-15</div>
-                <div class="day-content">
-                    <div class="book-title">Exodus (Israel in Egypt)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+1', 'KJV', this)">Exodus 1</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+2', 'KJV', this)">Exodus 2</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+3', 'KJV', this)">Exodus 3</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+4', 'KJV', this)">Exodus 4</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+5', 'KJV', this)">Exodus 5</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+6', 'KJV', this)">Exodus 6</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+7', 'KJV', this)">Exodus 7</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+8', 'KJV', this)">Exodus 8</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+9', 'KJV', this)">Exodus 9</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+10', 'KJV', this)">Exodus 10</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+11', 'KJV', this)">Exodus 11</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+12', 'KJV', this)">Exodus 12</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+13', 'KJV', this)">Exodus 13</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+14', 'KJV', this)">Exodus 14</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+15', 'KJV', this)">Exodus 15</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-4', Array.from({length: 15}, (_, i) => 'Exodus+' + (i+1)))">Reset Day 4</button>
-                </div>
-            </div>
-
-            <!-- Day 5 -->
-            <div class="day-card">
-                <div class="day-header" id="day-5-header" onclick="toggleDay(this)">Day 5 - Exodus 16-30</div>
-                <div class="day-content">
-                    <div class="book-title">Exodus (Wilderness Journey)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+16', 'KJV', this)">Exodus 16</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+17', 'KJV', this)">Exodus 17</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+18', 'KJV', this)">Exodus 18</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+19', 'KJV', this)">Exodus 19</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+20', 'KJV', this)">Exodus 20</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+21', 'KJV', this)">Exodus 21</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+22', 'KJV', this)">Exodus 22</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+23', 'KJV', this)">Exodus 23</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+24', 'KJV', this)">Exodus 24</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+25', 'KJV', this)">Exodus 25</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+26', 'KJV', this)">Exodus 26</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+27', 'KJV', this)">Exodus 27</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+28', 'KJV', this)">Exodus 28</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+29', 'KJV', this)">Exodus 29</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+30', 'KJV', this)">Exodus 30</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-5', Array.from({length: 15}, (_, i) => 'Exodus+' + (i+16)))">Reset Day 5</button>
-                </div>
-            </div>
-
-            <!-- Day 6 -->
-            <div class="day-card">
-                <div class="day-header" id="day-6-header" onclick="toggleDay(this)">Day 6 - Exodus 31-40, Leviticus 1-5</div>
-                <div class="day-content">
-                    <div class="book-title">Exodus & Leviticus (Tabernacle & Laws)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+31', 'KJV', this)">Exodus 31</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+32', 'KJV', this)">Exodus 32</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+33', 'KJV', this)">Exodus 33</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+34', 'KJV', this)">Exodus 34</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+35', 'KJV', this)">Exodus 35</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+36', 'KJV', this)">Exodus 36</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+37', 'KJV', this)">Exodus 37</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+38', 'KJV', this)">Exodus 38</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+39', 'KJV', this)">Exodus 39</button>
-                        <button class="chapter-btn" onclick="loadChapter('Exodus+40', 'KJV', this)">Exodus 40</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+1', 'KJV', this)">Leviticus 1</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+2', 'KJV', this)">Leviticus 2</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+3', 'KJV', this)">Leviticus 3</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+4', 'KJV', this)">Leviticus 4</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+5', 'KJV', this)">Leviticus 5</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-6', [...Array.from({length: 10}, (_, i) => 'Exodus+' + (i+31), ...Array.from({length: 5}, (_, i) => 'Leviticus+' + (i+1)])">Reset Day 6</button>
-                </div>
-            </div>
-
-            <!-- Day 7 -->
-            <div class="day-card">
-                <div class="day-header" id="day-7-header" onclick="toggleDay(this)">Day 7 - Leviticus 6-20</div>
-                <div class="day-content">
-                    <div class="book-title">Leviticus (Priestly Laws)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+6', 'KJV', this)">Leviticus 6</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+7', 'KJV', this)">Leviticus 7</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+8', 'KJV', this)">Leviticus 8</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+9', 'KJV', this)">Leviticus 9</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+10', 'KJV', this)">Leviticus 10</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+11', 'KJV', this)">Leviticus 11</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+12', 'KJV', this)">Leviticus 12</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+13', 'KJV', this)">Leviticus 13</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+14', 'KJV', this)">Leviticus 14</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+15', 'KJV', this)">Leviticus 15</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+16', 'KJV', this)">Leviticus 16</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+17', 'KJV', this)">Leviticus 17</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+18', 'KJV', this)">Leviticus 18</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+19', 'KJV', this)">Leviticus 19</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+20', 'KJV', this)">Leviticus 20</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-7', Array.from({length: 15}, (_, i) => 'Leviticus+' + (i+6)))">Reset Day 7</button>
-                </div>
-            </div>
-
-            <!-- Day 8 -->
-            <div class="day-card">
-                <div class="day-header" id="day-8-header" onclick="toggleDay(this)">Day 8 - Leviticus 21-27, Numbers 1-8</div>
-                <div class="day-content">
-                    <div class="book-title">Leviticus & Numbers (Laws & Census)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+21', 'KJV', this)">Leviticus 21</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+22', 'KJV', this)">Leviticus 22</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+23', 'KJV', this)">Leviticus 23</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+24', 'KJV', this)">Leviticus 24</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+25', 'KJV', this)">Leviticus 25</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+26', 'KJV', this)">Leviticus 26</button>
-                        <button class="chapter-btn" onclick="loadChapter('Leviticus+27', 'KJV', this)">Leviticus 27</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+1', 'KJV', this)">Numbers 1</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+2', 'KJV', this)">Numbers 2</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+3', 'KJV', this)">Numbers 3</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+4', 'KJV', this)">Numbers 4</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+5', 'KJV', this)">Numbers 5</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+6', 'KJV', this)">Numbers 6</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+7', 'KJV', this)">Numbers 7</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+8', 'KJV', this)">Numbers 8</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-8', [...Array.from({length: 7}, (_, i) => 'Leviticus+' + (i+21), ...Array.from({length: 8}, (_, i) => 'Numbers+' + (i+1)])">Reset Day 8</button>
-                </div>
-            </div>
-
-            <!-- Day 9 -->
-            <div class="day-card">
-                <div class="day-header" id="day-9-header" onclick="toggleDay(this)">Day 9 - Numbers 9-23</div>
-                <div class="day-content">
-                    <div class="book-title">Numbers (Wilderness Journey)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+9', 'KJV', this)">Numbers 9</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+10', 'KJV', this)">Numbers 10</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+11', 'KJV', this)">Numbers 11</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+12', 'KJV', this)">Numbers 12</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+13', 'KJV', this)">Numbers 13</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+14', 'KJV', this)">Numbers 14</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+15', 'KJV', this)">Numbers 15</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+16', 'KJV', this)">Numbers 16</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+17', 'KJV', this)">Numbers 17</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+18', 'KJV', this)">Numbers 18</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+19', 'KJV', this)">Numbers 19</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+20', 'KJV', this)">Numbers 20</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+21', 'KJV', this)">Numbers 21</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+22', 'KJV', this)">Numbers 22</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+23', 'KJV', this)">Numbers 23</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-9', Array.from({length: 15}, (_, i) => 'Numbers+' + (i+9)))">Reset Day 9</button>
-                </div>
-            </div>
-
-            <!-- Day 10 -->
-            <div class="day-card">
-                <div class="day-header" id="day-10-header" onclick="toggleDay(this)">Day 10 - Numbers 24-36</div>
-                <div class="day-content">
-                    <div class="book-title">Numbers (Balaam to Inheritance)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+24', 'KJV', this)">Numbers 24</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+25', 'KJV', this)">Numbers 25</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+26', 'KJV', this)">Numbers 26</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+27', 'KJV', this)">Numbers 27</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+28', 'KJV', this)">Numbers 28</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+29', 'KJV', this)">Numbers 29</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+30', 'KJV', this)">Numbers 30</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+31', 'KJV', this)">Numbers 31</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+32', 'KJV', this)">Numbers 32</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+33', 'KJV', this)">Numbers 33</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+34', 'KJV', this)">Numbers 34</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+35', 'KJV', this)">Numbers 35</button>
-                        <button class="chapter-btn" onclick="loadChapter('Numbers+36', 'KJV', this)">Numbers 36</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-10', Array.from({length: 13}, (_, i) => 'Numbers+' + (i+24)))">Reset Day 10</button>
-                </div>
-            </div>
-
-            <!-- Day 11 -->
-            <div class="day-card">
-                <div class="day-header" id="day-11-header" onclick="toggleDay(this)">Day 11 - Deuteronomy 1-15</div>
-                <div class="day-content">
-                    <div class="book-title">Deuteronomy (Moses' Sermons)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+1', 'KJV', this)">Deuteronomy 1</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+2', 'KJV', this)">Deuteronomy 2</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+3', 'KJV', this)">Deuteronomy 3</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+4', 'KJV', this)">Deuteronomy 4</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+5', 'KJV', this)">Deuteronomy 5</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+6', 'KJV', this)">Deuteronomy 6</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+7', 'KJV', this)">Deuteronomy 7</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+8', 'KJV', this)">Deuteronomy 8</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+9', 'KJV', this)">Deuteronomy 9</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+10', 'KJV', this)">Deuteronomy 10</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+11', 'KJV', this)">Deuteronomy 11</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+12', 'KJV', this)">Deuteronomy 12</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+13', 'KJV', this)">Deuteronomy 13</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+14', 'KJV', this)">Deuteronomy 14</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+15', 'KJV', this)">Deuteronomy 15</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-11', Array.from({length: 15}, (_, i) => 'Deuteronomy+' + (i+1)))">Reset Day 11</button>
-                </div>
-            </div>
-
-            <!-- Day 12 -->
-            <div class="day-card">
-                <div class="day-header" id="day-12-header" onclick="toggleDay(this)">Day 12 - Deuteronomy 16-30</div>
-                <div class="day-content">
-                    <div class="book-title">Deuteronomy (Laws & Covenant)</div>
-                    <div class="reading-buttons">
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+16', 'KJV', this)">Deuteronomy 16</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+17', 'KJV', this)">Deuteronomy 17</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+18', 'KJV', this)">Deuteronomy 18</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+19', 'KJV', this)">Deuteronomy 19</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+20', 'KJV', this)">Deuteronomy 20</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+21', 'KJV', this)">Deuteronomy 21</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+22', 'KJV', this)">Deuteronomy 22</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+23', 'KJV', this)">Deuteronomy 23</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+24', 'KJV', this)">Deuteronomy 24</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+25', 'KJV', this)">Deuteronomy 25</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+26', 'KJV', this)">Deuteronomy 26</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+27', 'KJV', this)">Deuteronomy 27</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+28', 'KJV', this)">Deuteronomy 28</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+29', 'KJV', this)">Deuteronomy 29</button>
-                        <button class="chapter-btn" onclick="loadChapter('Deuteronomy+30', 'KJV', this)">Deuteronomy 30</button>
-                    </div>
-                    <button class="reset-btn" onclick="resetDay('day-12', Array.from({length: 15}, (_, i) => 'Deuteronomy+' + (i+16)))">Reset Day 12</button>
-                </div>
-            </div>
-                        <!-- Day 13 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-13-header" onclick="toggleDay(this)">Day 13 - Deuteronomy 31-34, Joshua 1-11</div>
-                            <div class="day-content">
-                                <div class="book-title">Deuteronomy & Joshua (Transition to Joshua)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Deuteronomy+31', 'KJV', this)">Deuteronomy 31</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Deuteronomy+32', 'KJV', this)">Deuteronomy 32</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Deuteronomy+33', 'KJV', this)">Deuteronomy 33</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Deuteronomy+34', 'KJV', this)">Deuteronomy 34</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+1', 'KJV', this)">Joshua 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+2', 'KJV', this)">Joshua 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+3', 'KJV', this)">Joshua 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+4', 'KJV', this)">Joshua 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+5', 'KJV', this)">Joshua 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+6', 'KJV', this)">Joshua 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+7', 'KJV', this)">Joshua 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+8', 'KJV', this)">Joshua 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+9', 'KJV', this)">Joshua 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+10', 'KJV', this)">Joshua 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+11', 'KJV', this)">Joshua 11</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-13', [...Array.from({length: 4}, (_, i) => 'Deuteronomy+' + (i+31)), ...Array.from({length: 11}, (_, i) => 'Joshua+' + (i+1))])">Reset Day 13</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 14 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-14-header" onclick="toggleDay(this)">Day 14 - Joshua 12-24</div>
-                            <div class="day-content">
-                                <div class="book-title">Joshua (Conquest & Division)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+12', 'KJV', this)">Joshua 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+13', 'KJV', this)">Joshua 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+14', 'KJV', this)">Joshua 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+15', 'KJV', this)">Joshua 15</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+16', 'KJV', this)">Joshua 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+17', 'KJV', this)">Joshua 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+18', 'KJV', this)">Joshua 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+19', 'KJV', this)">Joshua 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+20', 'KJV', this)">Joshua 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+21', 'KJV', this)">Joshua 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+22', 'KJV', this)">Joshua 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+23', 'KJV', this)">Joshua 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Joshua+24', 'KJV', this)">Joshua 24</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-14', Array.from({length: 13}, (_, i) => 'Joshua+' + (i+12)))">Reset Day 14</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 15 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-15-header" onclick="toggleDay(this)">Day 15 - Judges 1-15</div>
-                            <div class="day-content">
-                                <div class="book-title">Judges (Early Judges)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+1', 'KJV', this)">Judges 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+2', 'KJV', this)">Judges 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+3', 'KJV', this)">Judges 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+4', 'KJV', this)">Judges 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+5', 'KJV', this)">Judges 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+6', 'KJV', this)">Judges 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+7', 'KJV', this)">Judges 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+8', 'KJV', this)">Judges 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+9', 'KJV', this)">Judges 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+10', 'KJV', this)">Judges 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+11', 'KJV', this)">Judges 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+12', 'KJV', this)">Judges 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+13', 'KJV', this)">Judges 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+14', 'KJV', this)">Judges 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+15', 'KJV', this)">Judges 15</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-15', Array.from({length: 15}, (_, i) => 'Judges+' + (i+1)))">Reset Day 15</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 16 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-16-header" onclick="toggleDay(this)">Day 16 - Judges 16-21, Ruth 1-4</div>
-                            <div class="day-content">
-                                <div class="book-title">Judges & Ruth (Samson to Ruth)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+16', 'KJV', this)">Judges 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+17', 'KJV', this)">Judges 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+18', 'KJV', this)">Judges 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+19', 'KJV', this)">Judges 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+20', 'KJV', this)">Judges 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Judges+21', 'KJV', this)">Judges 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Ruth+1', 'KJV', this)">Ruth 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Ruth+2', 'KJV', this)">Ruth 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Ruth+3', 'KJV', this)">Ruth 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Ruth+4', 'KJV', this)">Ruth 4</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-16', [...Array.from({length: 6}, (_, i) => 'Judges+' + (i+16), ...Array.from({length: 4}, (_, i) => 'Ruth+' + (i+1))])">Reset Day 16</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 17 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-17-header" onclick="toggleDay(this)">Day 17 - 1 Samuel 1-15</div>
-                            <div class="day-content">
-                                <div class="book-title">1 Samuel (Samuel & Saul)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+1', 'KJV', this)">1 Samuel 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+2', 'KJV', this)">1 Samuel 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+3', 'KJV', this)">1 Samuel 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+4', 'KJV', this)">1 Samuel 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+5', 'KJV', this)">1 Samuel 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+6', 'KJV', this)">1 Samuel 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+7', 'KJV', this)">1 Samuel 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+8', 'KJV', this)">1 Samuel 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+9', 'KJV', this)">1 Samuel 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+10', 'KJV', this)">1 Samuel 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+11', 'KJV', this)">1 Samuel 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+12', 'KJV', this)">1 Samuel 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+13', 'KJV', this)">1 Samuel 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+14', 'KJV', this)">1 Samuel 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+15', 'KJV', this)">1 Samuel 15</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-17', Array.from({length: 15}, (_, i) => '1+Samuel+' + (i+1)))">Reset Day 17</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 18 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-18-header" onclick="toggleDay(this)">Day 18 - 1 Samuel 16-31</div>
-                            <div class="day-content">
-                                <div class="book-title">1 Samuel (David's Rise)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+16', 'KJV', this)">1 Samuel 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+17', 'KJV', this)">1 Samuel 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+18', 'KJV', this)">1 Samuel 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+19', 'KJV', this)">1 Samuel 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+20', 'KJV', this)">1 Samuel 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+21', 'KJV', this)">1 Samuel 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+22', 'KJV', this)">1 Samuel 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+23', 'KJV', this)">1 Samuel 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+24', 'KJV', this)">1 Samuel 24</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+25', 'KJV', this)">1 Samuel 25</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+26', 'KJV', this)">1 Samuel 26</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+27', 'KJV', this)">1 Samuel 27</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+28', 'KJV', this)">1 Samuel 28</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+29', 'KJV', this)">1 Samuel 29</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+30', 'KJV', this)">1 Samuel 30</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Samuel+31', 'KJV', this)">1 Samuel 31</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-18', Array.from({length: 16}, (_, i) => '1+Samuel+' + (i+16)))">Reset Day 18</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 19 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-19-header" onclick="toggleDay(this)">Day 19 - 2 Samuel 1-15</div>
-                            <div class="day-content">
-                                <div class="book-title">2 Samuel (David's Reign)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+1', 'KJV', this)">2 Samuel 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+2', 'KJV', this)">2 Samuel 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+3', 'KJV', this)">2 Samuel 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+4', 'KJV', this)">2 Samuel 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+5', 'KJV', this)">2 Samuel 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+6', 'KJV', this)">2 Samuel 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+7', 'KJV', this)">2 Samuel 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+8', 'KJV', this)">2 Samuel 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+9', 'KJV', this)">2 Samuel 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+10', 'KJV', this)">2 Samuel 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+11', 'KJV', this)">2 Samuel 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+12', 'KJV', this)">2 Samuel 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+13', 'KJV', this)">2 Samuel 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+14', 'KJV', this)">2 Samuel 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+15', 'KJV', this)">2 Samuel 15</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-19', Array.from({length: 15}, (_, i) => '2+Samuel+' + (i+1)))">Reset Day 19</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 20 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-20-header" onclick="toggleDay(this)">Day 20 - 2 Samuel 16-24</div>
-                            <div class="day-content">
-                                <div class="book-title">2 Samuel (David's Later Reign)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+16', 'KJV', this)">2 Samuel 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+17', 'KJV', this)">2 Samuel 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+18', 'KJV', this)">2 Samuel 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+19', 'KJV', this)">2 Samuel 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+20', 'KJV', this)">2 Samuel 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+21', 'KJV', this)">2 Samuel 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+22', 'KJV', this)">2 Samuel 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+23', 'KJV', this)">2 Samuel 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Samuel+24', 'KJV', this)">2 Samuel 24</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-20', Array.from({length: 9}, (_, i) => '2+Samuel+' + (i+16)))">Reset Day 20</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 21 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-21-header" onclick="toggleDay(this)">Day 21 - 1 Kings 1-15</div>
-                            <div class="day-content">
-                                <div class="book-title">1 Kings (Solomon to Divided Kingdom)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+1', 'KJV', this)">1 Kings 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+2', 'KJV', this)">1 Kings 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+3', 'KJV', this)">1 Kings 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+4', 'KJV', this)">1 Kings 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+5', 'KJV', this)">1 Kings 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+6', 'KJV', this)">1 Kings 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+7', 'KJV', this)">1 Kings 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+8', 'KJV', this)">1 Kings 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+9', 'KJV', this)">1 Kings 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+10', 'KJV', this)">1 Kings 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+11', 'KJV', this)">1 Kings 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+12', 'KJV', this)">1 Kings 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+13', 'KJV', this)">1 Kings 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+14', 'KJV', this)">1 Kings 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+15', 'KJV', this)">1 Kings 15</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-21', Array.from({length: 15}, (_, i) => '1+Kings+' + (i+1)))">Reset Day 21</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 22 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-22-header" onclick="toggleDay(this)">Day 22 - 1 Kings 16-22, 2 Kings 1-2</div>
-                            <div class="day-content">
-                                <div class="book-title">1 Kings & 2 Kings (Elijah & Elisha)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+16', 'KJV', this)">1 Kings 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+17', 'KJV', this)">1 Kings 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+18', 'KJV', this)">1 Kings 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+19', 'KJV', this)">1 Kings 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+20', 'KJV', this)">1 Kings 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+21', 'KJV', this)">1 Kings 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('1+Kings+22', 'KJV', this)">1 Kings 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+1', 'KJV', this)">2 Kings 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+2', 'KJV', this)">2 Kings 2</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-22', [...Array.from({length: 7}, (_, i) => '1+Kings+' + (i+16), ...Array.from({length: 2}, (_, i) => '2+Kings+' + (i+1))])">Reset Day 22</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 23 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-23-header" onclick="toggleDay(this)">Day 23 - 2 Kings 3-17</div>
-                            <div class="day-content">
-                                <div class="book-title">2 Kings (Elisha to Israel's Fall)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+3', 'KJV', this)">2 Kings 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+4', 'KJV', this)">2 Kings 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+5', 'KJV', this)">2 Kings 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+6', 'KJV', this)">2 Kings 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+7', 'KJV', this)">2 Kings 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+8', 'KJV', this)">2 Kings 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+9', 'KJV', this)">2 Kings 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+10', 'KJV', this)">2 Kings 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+11', 'KJV', this)">2 Kings 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+12', 'KJV', this)">2 Kings 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+13', 'KJV', this)">2 Kings 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+14', 'KJV', this)">2 Kings 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+15', 'KJV', this)">2 Kings 15</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+16', 'KJV', this)">2 Kings 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+17', 'KJV', this)">2 Kings 17</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-23', Array.from({length: 15}, (_, i) => '2+Kings+' + (i+3)))">Reset Day 23</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 24 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-24-header" onclick="toggleDay(this)">Day 24 - 2 Kings 18-25</div>
-                            <div class="day-content">
-                                <div class="book-title">2 Kings (Hezekiah to Exile)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+18', 'KJV', this)">2 Kings 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+19', 'KJV', this)">2 Kings 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+20', 'KJV', this)">2 Kings 20</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+21', 'KJV', this)">2 Kings 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+22', 'KJV', this)">2 Kings 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+23', 'KJV', this)">2 Kings 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+24', 'KJV', this)">2 Kings 24</button>
-                                    <button class="chapter-btn" onclick="loadChapter('2+Kings+25', 'KJV', this)">2 Kings 25</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-24', Array.from({length: 8}, (_, i) => '2+Kings+' + (i+18)))">Reset Day 24</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 25 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-25-header" onclick="toggleDay(this)">Day 25 - Esther 1-10</div>
-                            <div class="day-content">
-                                <div class="book-title">Esther (Providential Deliverance)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+1', 'KJV', this)">Esther 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+2', 'KJV', this)">Esther 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+3', 'KJV', this)">Esther 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+4', 'KJV', this)">Esther 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+5', 'KJV', this)">Esther 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+6', 'KJV', this)">Esther 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+7', 'KJV', this)">Esther 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+8', 'KJV', this)">Esther 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+9', 'KJV', this)">Esther 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Esther+10', 'KJV', this)">Esther 10</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-25', Array.from({length: 10}, (_, i) => 'Esther+' + (i+1)))">Reset Day 25</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 26 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-26-header" onclick="toggleDay(this)">Day 26 - Job 1-20</div>
-                            <div class="day-content">
-                                <div class="book-title">Job (Suffering & Wisdom)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Job+1', 'KJV', this)">Job 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+2', 'KJV', this)">Job 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+3', 'KJV', this)">Job 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+4', 'KJV', this)">Job 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+5', 'KJV', this)">Job 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+6', 'KJV', this)">Job 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+7', 'KJV', this)">Job 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+8', 'KJV', this)">Job 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+9', 'KJV', this)">Job 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+10', 'KJV', this)">Job 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+11', 'KJV', this)">Job 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+12', 'KJV', this)">Job 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+13', 'KJV', this)">Job 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+14', 'KJV', this)">Job 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+15', 'KJV', this)">Job 15</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+16', 'KJV', this)">Job 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+17', 'KJV', this)">Job 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+18', 'KJV', this)">Job 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+19', 'KJV', this)">Job 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+20', 'KJV', this)">Job 20</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-26', Array.from({length: 20}, (_, i) => 'Job+' + (i+1)))">Reset Day 26</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 27 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-27-header" onclick="toggleDay(this)">Day 27 - Job 21-42</div>
-                            <div class="day-content">
-                                <div class="book-title">Job (God's Response & Restoration)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Job+21', 'KJV', this)">Job 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+22', 'KJV', this)">Job 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+23', 'KJV', this)">Job 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+24', 'KJV', this)">Job 24</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+25', 'KJV', this)">Job 25</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+26', 'KJV', this)">Job 26</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+27', 'KJV', this)">Job 27</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+28', 'KJV', this)">Job 28</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+29', 'KJV', this)">Job 29</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+30', 'KJV', this)">Job 30</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+31', 'KJV', this)">Job 31</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+32', 'KJV', this)">Job 32</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+33', 'KJV', this)">Job 33</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+34', 'KJV', this)">Job 34</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+35', 'KJV', this)">Job 35</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+36', 'KJV', this)">Job 36</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+37', 'KJV', this)">Job 37</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+38', 'KJV', this)">Job 38</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+39', 'KJV', this)">Job 39</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+40', 'KJV', this)">Job 40</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+41', 'KJV', this)">Job 41</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Job+42', 'KJV', this)">Job 42</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-27', Array.from({length: 22}, (_, i) => 'Job+' + (i+21)))">Reset Day 27</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 28 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-28-header" onclick="toggleDay(this)">Day 28 - Psalms 1-20</div>
-                            <div class="day-content">
-                                <div class="book-title">Psalms (Worship & Wisdom)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+1', 'KJV', this)">Psalm 1</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+2', 'KJV', this)">Psalm 2</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+3', 'KJV', this)">Psalm 3</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+4', 'KJV', this)">Psalm 4</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+5', 'KJV', this)">Psalm 5</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+6', 'KJV', this)">Psalm 6</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+7', 'KJV', this)">Psalm 7</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+8', 'KJV', this)">Psalm 8</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+9', 'KJV', this)">Psalm 9</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+10', 'KJV', this)">Psalm 10</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+11', 'KJV', this)">Psalm 11</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+12', 'KJV', this)">Psalm 12</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+13', 'KJV', this)">Psalm 13</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+14', 'KJV', this)">Psalm 14</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+15', 'KJV', this)">Psalm 15</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+16', 'KJV', this)">Psalm 16</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+17', 'KJV', this)">Psalm 17</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+18', 'KJV', this)">Psalm 18</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+19', 'KJV', this)">Psalm 19</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+20', 'KJV', this)">Psalm 20</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-28', Array.from({length: 20}, (_, i) => 'Psalms+' + (i+1)))">Reset Day 28</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 29 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-29-header" onclick="toggleDay(this)">Day 29 - Psalms 21-40</div>
-                            <div class="day-content">
-                                <div class="book-title">Psalms (Praise & Petition)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+21', 'KJV', this)">Psalm 21</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+22', 'KJV', this)">Psalm 22</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+23', 'KJV', this)">Psalm 23</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+24', 'KJV', this)">Psalm 24</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+25', 'KJV', this)">Psalm 25</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+26', 'KJV', this)">Psalm 26</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+27', 'KJV', this)">Psalm 27</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+28', 'KJV', this)">Psalm 28</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+29', 'KJV', this)">Psalm 29</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+30', 'KJV', this)">Psalm 30</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+31', 'KJV', this)">Psalm 31</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+32', 'KJV', this)">Psalm 32</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+33', 'KJV', this)">Psalm 33</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+34', 'KJV', this)">Psalm 34</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+35', 'KJV', this)">Psalm 35</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+36', 'KJV', this)">Psalm 36</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+37', 'KJV', this)">Psalm 37</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+38', 'KJV', this)">Psalm 38</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+39', 'KJV', this)">Psalm 39</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+40', 'KJV', this)">Psalm 40</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-29', Array.from({length: 20}, (_, i) => 'Psalms+' + (i+21)))">Reset Day 29</button>
-                            </div>
-                        </div>
-            
-                        <!-- Day 30 -->
-                        <div class="day-card">
-                            <div class="day-header" id="day-30-header" onclick="toggleDay(this)">Day 30 - Psalms 41-60</div>
-                            <div class="day-content">
-                                <div class="book-title">Psalms (Trust & Deliverance)</div>
-                                <div class="reading-buttons">
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+41', 'KJV', this)">Psalm 41</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+42', 'KJV', this)">Psalm 42</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+43', 'KJV', this)">Psalm 43</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+44', 'KJV', this)">Psalm 44</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+45', 'KJV', this)">Psalm 45</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+46', 'KJV', this)">Psalm 46</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+47', 'KJV', this)">Psalm 47</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+48', 'KJV', this)">Psalm 48</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+49', 'KJV', this)">Psalm 49</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+50', 'KJV', this)">Psalm 50</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+51', 'KJV', this)">Psalm 51</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+52', 'KJV', this)">Psalm 52</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+53', 'KJV', this)">Psalm 53</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+54', 'KJV', this)">Psalm 54</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+55', 'KJV', this)">Psalm 55</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+56', 'KJV', this)">Psalm 56</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+57', 'KJV', this)">Psalm 57</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+58', 'KJV', this)">Psalm 58</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+59', 'KJV', this)">Psalm 59</button>
-                                    <button class="chapter-btn" onclick="loadChapter('Psalms+60', 'KJV', this)">Psalm 60</button>
-                                </div>
-                                <button class="reset-btn" onclick="resetDay('day-30', Array.from({length: 20}, (_, i) => 'Psalms+' + (i+41)))">Reset Day 30</button>
-                            </div>
-                        </div>
-
-            <!-- Placeholder for remaining days -->
+            <!-- Placeholder for remaining days (3-30) -->
             <div class="days-placeholder" id="remaining-days-placeholder">
-                <!-- Additional days will be dynamically inserted here -->
+                <!-- Days 3-30 will be dynamically inserted here -->
             </div>
         </div>
 
@@ -1036,26 +358,54 @@
 
     <script>
         // Global variables
-        const totalChapters = 30 * 15; // 30 days × 15 chapters/day
+        const totalChapters = 30 * 14; // 30 days × 14 chapters/day (main reading)
         let readChapters = 0;
+        
+        // 30-day reading plan structure (14 chapters per day)
         const readingPlan = [
-            // Days 1-2: Genesis
-            { book: 'Genesis', start: 1, end: 30, days: 2 },
-            // Remaining structure for the full 30-day plan
-            { book: 'Genesis', start: 31, end: 50, days: 2 },
-            { book: 'Exodus', start: 1, end: 40, days: 3 },
-            { book: 'Leviticus', start: 1, end: 27, days: 2 },
-            { book: 'Numbers', start: 1, end: 36, days: 3 },
-            { book: 'Deuteronomy', start: 1, end: 34, days: 3 },
-            { book: 'Joshua', start: 1, end: 24, days: 2 },
-            { book: 'Judges', start: 1, end: 21, days: 2 },
-            { book: 'Ruth', start: 1, end: 4, days: 1 },
-            { book: '1 Samuel', start: 1, end: 31, days: 3 },
-            { book: '2 Samuel', start: 1, end: 24, days: 2 },
-            { book: '1 Kings', start: 1, end: 22, days: 2 },
-            { book: '2 Kings', start: 1, end: 25, days: 2 },
-            { book: 'Esther', start: 1, end: 10, days: 1 }
+            // Day 1-2: Genesis
+            { book: 'Genesis', start: 1, end: 14, day: 1 },
+            { book: 'Genesis', start: 15, end: 28, day: 2 },
+            { book: 'Genesis', start: 29, end: 42, day: 3 },
+            { book: 'Genesis', start: 43, end: 50, nextBook: 'Exodus', nextStart: 1, nextEnd: 6, day: 4 },
+            { book: 'Exodus', start: 7, end: 20, day: 5 },
+            { book: 'Exodus', start: 21, end: 34, day: 6 },
+            { book: 'Exodus', start: 35, end: 40, nextBook: 'Leviticus', nextStart: 1, nextEnd: 7, day: 7 },
+            { book: 'Leviticus', start: 8, end: 21, day: 8 },
+            { book: 'Leviticus', start: 22, end: 27, nextBook: 'Numbers', nextStart: 1, nextEnd: 5, day: 9 },
+            { book: 'Numbers', start: 6, end: 19, day: 10 },
+            { book: 'Numbers', start: 20, end: 33, day: 11 },
+            { book: 'Numbers', start: 34, end: 36, nextBook: 'Deuteronomy', nextStart: 1, nextEnd: 10, day: 12 },
+            { book: 'Deuteronomy', start: 11, end: 24, day: 13 },
+            { book: 'Deuteronomy', start: 25, end: 34, nextBook: 'Joshua', nextStart: 1, nextEnd: 2, day: 14 },
+            { book: 'Joshua', start: 3, end: 16, day: 15 },
+            { book: 'Joshua', start: 17, end: 24, nextBook: 'Judges', nextStart: 1, nextEnd: 10, day: 16 },
+            { book: 'Judges', start: 11, end: 21, nextBook: 'Ruth', nextStart: 1, nextEnd: 4, day: 17 },
+            { book: '1 Samuel', start: 1, end: 14, day: 18 },
+            { book: '1 Samuel', start: 15, end: 28, day: 19 },
+            { book: '1 Samuel', start: 29, end: 31, nextBook: '2 Samuel', nextStart: 1, nextEnd: 12, day: 20 },
+            { book: '2 Samuel', start: 13, end: 24, day: 21 },
+            { book: '1 Kings', start: 1, end: 14, day: 22 },
+            { book: '1 Kings', start: 15, end: 22, nextBook: '2 Kings', nextStart: 1, nextEnd: 8, day: 23 },
+            { book: '2 Kings', start: 9, end: 22, day: 24 },
+            { book: '2 Kings', start: 23, end: 25, nextBook: '1 Chronicles', nextStart: 1, nextEnd: 10, day: 25 },
+            { book: '1 Chronicles', start: 11, end: 24, day: 26 },
+            { book: '1 Chronicles', start: 25, end: 29, nextBook: '2 Chronicles', nextStart: 1, nextEnd: 8, day: 27 },
+            { book: '2 Chronicles', start: 9, end: 22, day: 28 },
+            { book: '2 Chronicles', start: 23, end: 36, day: 29 },
+            { book: 'Ezra', start: 1, end: 10, nextBook: 'Nehemiah', nextStart: 1, nextEnd: 4, day: 30 }
         ];
+
+        // Psalms reading plan (5 per day)
+        const psalmsPlan = [];
+        for (let day = 1; day <= 30; day++) {
+            const startPsalm = (day - 1) * 5 + 1;
+            psalmsPlan.push({
+                day: day,
+                start: startPsalm,
+                end: startPsalm + 4
+            });
+        }
 
         // Toggle day collapse/expand
         function toggleDay(header) {
@@ -1066,7 +416,6 @@
 
         // Load chapter from Bible API with smooth loading animation
         async function loadChapter(passage, version, buttonElement) {
-            const apiUrl = `https://bible-api.com/${passage}?translation=${version}`;
             const bibleText = document.getElementById('bible-text');
             const chapterTitle = document.getElementById('chapter-title');
             
@@ -1076,19 +425,25 @@
             showBibleScreen();
             
             try {
+                const apiUrl = `https://bible-api.com/${passage}?translation=${version}`;
                 const response = await fetch(apiUrl);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 
-                // Display chapter title
+                // Display chapter title with appropriate styling
                 chapterTitle.textContent = data.reference;
+                if (passage.startsWith('Psalms')) {
+                    chapterTitle.classList.add('psalms-chapter-title');
+                } else {
+                    chapterTitle.classList.remove('psalms-chapter-title');
+                }
                 
-                // Process and display text with smooth appearance
+                // Process and display text with appropriate verse styling
                 if (data.verses && data.verses.length > 0) {
-                    // Display with verse numbers (subtle formatting)
+                    const isPsalms = passage.startsWith('Psalms');
                     bibleText.innerHTML = data.verses.map(verse => 
                         `<div class="verse">` +
-                        `<span class="verse-number">${verse.verse}</span> ` +
+                        `<span class="${isPsalms ? 'psalms-verse-number' : 'verse-number'}">${verse.verse}</span> ` +
                         `${verse.text}</div>`
                     ).join('');
                 } else {
@@ -1198,37 +553,73 @@
                 // Check day completion
                 checkDayCompletion(passage);
                 
-                readChapters++;
+                // Only count main reading chapters (not Psalms) for progress
+                if (!passage.startsWith('Psalms')) {
+                    readChapters++;
+                }
                 updateProgress();
             }
         }
 
         // Check if all chapters in a day are completed
         function checkDayCompletion(passage) {
+            // Only check completion for main reading chapters (not Psalms)
+            if (passage.startsWith('Psalms')) return;
+            
+            // Extract book and chapter number
             const [book, chapter] = passage.split('+');
             const chapterNum = parseInt(chapter);
             
-            // Determine day range (15 chapters per day)
-            const dayNum = Math.ceil(chapterNum / 15);
-            const dayId = `day-${dayNum}`;
+            // Find which day this chapter belongs to
+            let dayNum = 0;
+            let cumulativeChapters = 0;
             
-            // Check if header exists (only days 1-2 are fully implemented)
+            for (const day of readingPlan) {
+                if (day.book === book && chapterNum >= day.start && chapterNum <= day.end) {
+                    dayNum = day.day;
+                    break;
+                }
+                cumulativeChapters += (day.end - day.start + 1);
+                if (day.nextBook) {
+                    if (book === day.nextBook && chapterNum >= day.nextStart && chapterNum <= day.nextEnd) {
+                        dayNum = day.day;
+                        break;
+                    }
+                    cumulativeChapters += (day.nextEnd - day.nextStart + 1);
+                }
+            }
+            
+            if (dayNum === 0) return;
+            
+            const dayId = `day-${dayNum}`;
             const dayHeader = document.getElementById(dayId + '-header');
             if (!dayHeader) return;
             
-            // Count completed chapters for this day
+            // Count completed chapters for this day's main reading
+            const dayPlan = readingPlan.find(d => d.day === dayNum);
             let completedCount = 0;
-            const startChapter = (dayNum - 1) * 15 + 1;
-            const endChapter = dayNum * 15;
+            let totalChapters = 0;
             
-            for (let i = startChapter; i <= endChapter; i++) {
-                if (localStorage.getItem(`${book}+${i}`)) {
+            // Check main book chapters
+            for (let i = dayPlan.start; i <= dayPlan.end; i++) {
+                totalChapters++;
+                if (localStorage.getItem(`${dayPlan.book}+${i}`)) {
                     completedCount++;
                 }
             }
             
-            // Mark day as completed if all chapters are read
-            if (completedCount === 15) {
+            // Check next book chapters if they exist
+            if (dayPlan.nextBook) {
+                for (let i = dayPlan.nextStart; i <= dayPlan.nextEnd; i++) {
+                    totalChapters++;
+                    if (localStorage.getItem(`${dayPlan.nextBook}+${i}`)) {
+                        completedCount++;
+                    }
+                }
+            }
+            
+            // Mark day as completed if all main chapters are read
+            if (completedCount === totalChapters) {
                 dayHeader.classList.add('completed');
             } else {
                 dayHeader.classList.remove('completed');
@@ -1259,35 +650,139 @@
             animate();
         }
 
+        // Generate the remaining days (3-30) dynamically
+        function generateRemainingDays() {
+            const placeholder = document.getElementById('remaining-days-placeholder');
+            
+            for (let dayNum = 3; dayNum <= 30; dayNum++) {
+                const dayPlan = readingPlan.find(d => d.day === dayNum);
+                if (!dayPlan) continue;
+                
+                // Calculate Psalms for this day
+                const psalmsDay = psalmsPlan.find(d => d.day === dayNum);
+                const psalmsButtons = [];
+                for (let i = psalmsDay.start; i <= psalmsDay.end; i++) {
+                    psalmsButtons.push(`<button class="chapter-btn psalms-btn" onclick="loadChapter('Psalms+${i}', 'KJV', this)">Psalm ${i}</button>`);
+                }
+                
+                // Create main reading buttons
+                let mainButtons = [];
+                let resetChapters = [];
+                
+                // Main book chapters
+                for (let i = dayPlan.start; i <= dayPlan.end; i++) {
+                    mainButtons.push(`<button class="chapter-btn" onclick="loadChapter('${dayPlan.book}+${i}', 'KJV', this)">${dayPlan.book} ${i}</button>`);
+                    resetChapters.push(`${dayPlan.book}+${i}`);
+                }
+                
+                // Next book chapters if they exist
+                if (dayPlan.nextBook) {
+                    for (let i = dayPlan.nextStart; i <= dayPlan.nextEnd; i++) {
+                        mainButtons.push(`<button class="chapter-btn" onclick="loadChapter('${dayPlan.nextBook}+${i}', 'KJV', this)">${dayPlan.nextBook} ${i}</button>`);
+                        resetChapters.push(`${dayPlan.nextBook}+${i}`);
+                    }
+                }
+                
+                // Add Psalms to reset chapters
+                for (let i = psalmsDay.start; i <= psalmsDay.end; i++) {
+                    resetChapters.push(`Psalms+${i}`);
+                }
+                
+                // Create day card HTML
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                dayCard.innerHTML = `
+                    <div class="day-header" id="day-${dayNum}-header" onclick="toggleDay(this)">Day ${dayNum} - ${getDayTitle(dayPlan)}</div>
+                    <div class="day-content">
+                        <div class="book-title">${getBookTitle(dayPlan)}</div>
+                        <div class="reading-buttons">
+                            ${mainButtons.join('')}
+                        </div>
+                        
+                        <div class="optional-label">Optional Psalms (5 daily):</div>
+                        <div class="reading-buttons">
+                            ${psalmsButtons.join('')}
+                        </div>
+                        
+                        <button class="reset-btn" onclick="resetDay('day-${dayNum}', ${JSON.stringify(resetChapters)})">Reset Day ${dayNum}</button>
+                    </div>
+                `;
+                
+                placeholder.appendChild(dayCard);
+            }
+        }
+        
+        // Helper function to get day title
+        function getDayTitle(dayPlan) {
+            let title = `${dayPlan.book} ${dayPlan.start}-${dayPlan.end}`;
+            if (dayPlan.nextBook) {
+                title += `, ${dayPlan.nextBook} ${dayPlan.nextStart}-${dayPlan.nextEnd}`;
+            }
+            return title;
+        }
+        
+        // Helper function to get book title/description
+        function getBookTitle(dayPlan) {
+            // This would contain the descriptive titles for each section
+            // Simplified for this example
+            if (dayPlan.book === 'Genesis') {
+                if (dayPlan.start >= 29) return "Genesis (Jacob to Joseph)";
+                if (dayPlan.start >= 15) return "Genesis (Abraham to Jacob)";
+                return "Genesis (Creation & Patriarchs)";
+            }
+            if (dayPlan.book === 'Exodus') return "Exodus (Israel's Deliverance)";
+            if (dayPlan.book === 'Leviticus') return "Leviticus (Priestly Laws)";
+            if (dayPlan.book === 'Numbers') return "Numbers (Wilderness Journey)";
+            if (dayPlan.book === 'Deuteronomy') return "Deuteronomy (Moses' Sermons)";
+            if (dayPlan.book === 'Joshua') return "Joshua (Conquest of Canaan)";
+            if (dayPlan.book === 'Judges') return "Judges (Cycle of Apostasy)";
+            if (dayPlan.book === 'Ruth') return "Ruth (Loyalty and Redemption)";
+            if (dayPlan.book === '1 Samuel') return "1 Samuel (Samuel & Saul)";
+            if (dayPlan.book === '2 Samuel') return "2 Samuel (David's Reign)";
+            if (dayPlan.book === '1 Kings') return "1 Kings (United & Divided Kingdom)";
+            if (dayPlan.book === '2 Kings') return "2 Kings (Israel & Judah's Kings)";
+            if (dayPlan.book === '1 Chronicles') return "1 Chronicles (David's Reign)";
+            if (dayPlan.book === '2 Chronicles') return "2 Chronicles (Temple History)";
+            if (dayPlan.book === 'Ezra') return "Ezra (Return from Exile)";
+            if (dayPlan.book === 'Nehemiah') return "Nehemiah (Rebuilding Jerusalem)";
+            return dayPlan.book;
+        }
+
         // Initialize progress on page load
         function initializeProgress() {
             readChapters = 0;
             
             // Count all completed chapters in localStorage
-            for (let i = 1; i <= 30; i++) { // Check first 30 chapters (days 1-2)
-                const chapter = `Genesis+${i}`;
-                if (localStorage.getItem(chapter)) {
-                    readChapters++;
-                    
-                    // Update button appearance
-                    const dayNum = Math.ceil(i / 15);
-                    const dayContent = document.querySelectorAll('.day-content')[dayNum - 1];
-                    if (dayContent) {
-                        const chapterIndex = (i - 1) % 15;
-                        const buttons = dayContent.querySelectorAll('.chapter-btn');
-                        if (buttons[chapterIndex]) {
-                            buttons[chapterIndex].classList.add('completed');
-                            if (!buttons[chapterIndex].textContent.includes('✓')) {
-                                buttons[chapterIndex].textContent += ' ✓';
-                            }
+            for (let dayNum = 1; dayNum <= 30; dayNum++) {
+                const dayPlan = readingPlan.find(d => d.day === dayNum);
+                if (!dayPlan) continue;
+                
+                // Check main book chapters
+                for (let i = dayPlan.start; i <= dayPlan.end; i++) {
+                    const chapter = `${dayPlan.book}+${i}`;
+                    if (localStorage.getItem(chapter)) {
+                        readChapters++;
+                        updateButtonState(dayNum, chapter);
+                    }
+                }
+                
+                // Check next book chapters if they exist
+                if (dayPlan.nextBook) {
+                    for (let i = dayPlan.nextStart; i <= dayPlan.nextEnd; i++) {
+                        const chapter = `${dayPlan.nextBook}+${i}`;
+                        if (localStorage.getItem(chapter)) {
+                            readChapters++;
+                            updateButtonState(dayNum, chapter);
                         }
                     }
                 }
+                
+                // Check day completion
+                checkDayCompletion(`${dayPlan.book}+${dayPlan.start}`);
             }
             
-            // Check day completions
-            checkDayCompletion('Genesis+1');
-            checkDayCompletion('Genesis+16');
+            // Generate remaining days (3-30)
+            generateRemainingDays();
             
             updateProgress();
             
@@ -1297,6 +792,22 @@
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
             });
+        }
+        
+        // Update button state based on localStorage
+        function updateButtonState(dayNum, chapter) {
+            const dayContent = document.querySelector(`#day-${dayNum}-header + .day-content`);
+            if (!dayContent) return;
+            
+            const buttons = dayContent.querySelectorAll('.chapter-btn');
+            for (const btn of buttons) {
+                if (btn.textContent.replace(' ✓', '') === chapter.replace('+', ' ')) {
+                    btn.classList.add('completed');
+                    if (!btn.textContent.includes('✓')) {
+                        btn.textContent += ' ✓';
+                    }
+                }
+            }
         }
 
         // Add CSS animation
